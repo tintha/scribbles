@@ -1,29 +1,23 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   Pane,
   Text,
   Heading,
   Paragraph,
   Button,
-  TextInput,
   Spinner,
+  Link,
 } from "evergreen-ui";
 import { UserContext } from "./UserContext";
 import SignUp from "./SignUp";
 import AddPost from "./AddPost";
+import Login from "./Login";
 
 const Home = () => {
-  const {
-    currentUser,
-    email,
-    password,
-    error,
-    signInWithEmailAndPasswordHandler,
-    onChangeHandler,
-    handleSignOut,
-    posts,
-    userBio,
-  } = useContext(UserContext);
+  const { currentUser, error, handleSignOut, posts, userBio } = useContext(
+    UserContext
+  );
+  const [formShown, setFormShown] = useState("loginForm");
 
   return (
     <Pane
@@ -92,35 +86,29 @@ const Home = () => {
                     {error}
                   </Text>
                 )}
-                <label htmlFor="email">
-                  <Text>Email:</Text>
-                </label>
-                <TextInput
-                  width={200}
-                  name="email"
-                  placeholder="email"
-                  onChange={(event) => onChangeHandler(event)}
-                ></TextInput>
-                <label htmlFor="password">
-                  <Text>Password</Text>
-                </label>
-                <TextInput
-                  type="password"
-                  width={200}
-                  name="password"
-                  placeholder="password"
-                  onChange={(event) => onChangeHandler(event)}
-                ></TextInput>
-                <Button
-                  marginTop={10}
-                  appearance="default"
-                  onClick={(event) => {
-                    signInWithEmailAndPasswordHandler(event, email, password);
-                  }}
-                >
-                  Login
-                </Button>
-                <SignUp />
+                {formShown === "loginForm" ? (
+                  <>
+                    <Login />
+                    <Link
+                      href="#"
+                      marginRight={12}
+                      onClick={() => setFormShown("signUpForm")}
+                    >
+                      Sign Up
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <SignUp />
+                    <Link
+                      href="#"
+                      marginRight={12}
+                      onClick={() => setFormShown("loginForm")}
+                    >
+                      Login
+                    </Link>
+                  </>
+                )}
               </>
             )}
           </Pane>

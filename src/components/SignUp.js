@@ -19,16 +19,18 @@ const SignUp = () => {
       <TextInput
         width={200}
         name="displayName"
-        placeholder="displayName"
+        value={displayName}
+        placeholder="display name"
         onChange={(event) => onChangeHandler(event)}
       />
       <label htmlFor="email">
-        <Text>Email/Username</Text>
+        <Text>Email</Text>
       </label>
       <TextInput
         width={200}
         name="email"
-        placeholder="email"
+        value={email}
+        placeholder="your@email.com"
         onChange={(event) => onChangeHandler(event)}
       />
       <label htmlFor="password">
@@ -38,6 +40,7 @@ const SignUp = () => {
         width={200}
         type="password"
         name="password"
+        value={password}
         placeholder="password"
         onChange={(event) => onChangeHandler(event)}
       />
@@ -47,7 +50,8 @@ const SignUp = () => {
       <TextInput
         width={200}
         name="bio"
-        placeholder="bio"
+        value={bio}
+        placeholder="Short biography"
         onChange={(event) => onChangeHandler(event)}
       />
       <Button

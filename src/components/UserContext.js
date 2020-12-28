@@ -70,6 +70,8 @@ export const UserProvider = ({ children }) => {
         displayName,
       });
       setError(null);
+      setDisplayName("");
+      setBio("");
     } catch (err) {
       setError(err.message);
     }
@@ -83,6 +85,7 @@ export const UserProvider = ({ children }) => {
         // Sign-out successful.
         setEmail("");
         setPassword("");
+        setUserBio("");
       })
       .catch(function (error) {
         // An error happened.
