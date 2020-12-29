@@ -12,20 +12,12 @@ const AddPost = () => {
   } = useContext(UserContext);
 
   return (
-    <Pane
-      width={600}
-      display="flex"
-      flexDirection="column"
-      padding={20}
-      background="tint1"
-      border="default"
-      marginBottom={20}
-    >
+    <Pane width={400} display="flex" flexDirection="column" marginBottom={20}>
       <label htmlFor="title">
         <Text>Title</Text>
       </label>
       <TextInput
-        width={560}
+        width={400}
         name="title"
         value={title}
         onChange={(event) => onChangeHandler(event)}

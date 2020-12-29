@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { Route } from "react-router-dom";
 import {
   Pane,
   Text,
@@ -28,10 +29,10 @@ const Home = () => {
     >
       <Pane display="flex" flexDirection="column">
         <Pane marginBottom={10}>
-          <Heading size={700}>Mini blog</Heading>
+          <Heading size={700}>Micro blog</Heading>
         </Pane>
         <Pane display="flex" flexDirection="row">
-          <Pane display="flex" flexDirection="column" width={600}>
+          <Pane display="flex" flexDirection="column" width={400}>
             {currentUser && <AddPost />}
             {posts ? (
               posts.map((post, index) => {
@@ -39,13 +40,12 @@ const Home = () => {
                 return (
                   <Pane
                     elevation={0}
-                    width={600}
+                    width={400}
                     display="flex"
                     flexDirection="column"
                     alignItems="flex-start"
                     justifyContent="center"
-                    border="default"
-                    background="tint1"
+                    borderBottom="default"
                     padding={24}
                     marginBottom={16}
                     key={index}
@@ -64,7 +64,6 @@ const Home = () => {
           </Pane>
 
           <Pane
-            elevation={0}
             width={250}
             padding={24}
             display="flex"
@@ -100,6 +99,7 @@ const Home = () => {
                 ) : (
                   <>
                     <SignUp />
+
                     <Link
                       href="#"
                       marginRight={12}
