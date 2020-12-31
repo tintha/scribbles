@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Route } from "react-router-dom";
+import styled from "styled-components";
 import {
   Pane,
   Text,
@@ -13,6 +14,7 @@ import { UserContext } from "./UserContext";
 import SignUp from "./SignUp";
 import AddPost from "./AddPost";
 import Login from "./Login";
+import App from "./App";
 
 const Home = () => {
   const { currentUser, error, handleSignOut, posts, userBio } = useContext(
@@ -26,10 +28,11 @@ const Home = () => {
       alignItems="flex-start"
       justifyContent="center"
       width="100%"
+      background="tint2"
     >
       <Pane display="flex" flexDirection="column">
         <Pane marginBottom={10}>
-          <Heading size={700}>Micro blog</Heading>
+          <AppTitle>Scribbles</AppTitle>
         </Pane>
         <Pane display="flex" flexDirection="row">
           <Pane display="flex" flexDirection="column" width={400}>
@@ -49,6 +52,7 @@ const Home = () => {
                     padding={24}
                     marginBottom={16}
                     key={index}
+                    background="tint1"
                   >
                     <Heading>{post.title}</Heading>
                     <Text size={300}>Posted on {datePosted}</Text>
@@ -117,5 +121,10 @@ const Home = () => {
     </Pane>
   );
 };
+
+const AppTitle = styled.h1`
+  font-family: "Amatic SC", cursive;
+  font-size: 4rem;
+`;
 
 export default Home;
