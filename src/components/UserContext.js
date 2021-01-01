@@ -14,6 +14,7 @@ export const UserProvider = ({ children }) => {
   const [displayName, setDisplayName] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [userBlogPosts, setUserBlogPosts] = useState(null);
 
   useEffect(() => {
     auth.onAuthStateChanged((userAuth) => {
@@ -47,6 +48,18 @@ export const UserProvider = ({ children }) => {
 
     return () => unsubscribe();
   }, []);
+
+  const userBlogPage = (id) => {
+    db.collection("posts")
+      .where("userID", "==", id)
+      .orderBy("postedOn", "desc")
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          console.log(doc.id, "=>", doc.data());
+        });
+      });
+  };
 
   const signInWithEmailAndPasswordHandler = async (event, email, password) => {
     event.preventDefault();
@@ -144,6 +157,8 @@ export const UserProvider = ({ children }) => {
         addBlogPost,
         title,
         content,
+        userBlogPage,
+        userBlogPosts,
       }}
     >
       {children}

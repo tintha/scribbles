@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 import {
   Pane,
@@ -14,7 +14,6 @@ import { UserContext } from "./UserContext";
 import SignUp from "./SignUp";
 import AddPost from "./AddPost";
 import Login from "./Login";
-import App from "./App";
 
 const Home = () => {
   const { currentUser, error, handleSignOut, posts, userBio } = useContext(
@@ -28,31 +27,26 @@ const Home = () => {
       alignItems="flex-start"
       justifyContent="center"
       width="100%"
-      background="tint2"
+      background="#fff"
     >
       <Pane display="flex" flexDirection="column">
-        <Pane marginBottom={10}>
-          <AppTitle>Scribbles</AppTitle>
-        </Pane>
         <Pane display="flex" flexDirection="row">
-          <Pane display="flex" flexDirection="column" width={400}>
+          <Pane display="flex" flexDirection="column" width={600}>
             {currentUser && <AddPost />}
             {posts ? (
               posts.map((post, index) => {
                 let datePosted = post.postedOn.toDate().toLocaleDateString();
                 return (
                   <Pane
-                    elevation={0}
-                    width={400}
+                    width={600}
                     display="flex"
                     flexDirection="column"
                     alignItems="flex-start"
                     justifyContent="center"
-                    borderBottom="default"
                     padding={24}
+                    marginTop={10}
                     marginBottom={16}
                     key={index}
-                    background="tint1"
                   >
                     <Heading>{post.title}</Heading>
                     <Text size={300}>Posted on {datePosted}</Text>
@@ -67,13 +61,7 @@ const Home = () => {
             )}
           </Pane>
 
-          <Pane
-            width={250}
-            padding={24}
-            display="flex"
-            flexDirection="column"
-            marginLeft={20}
-          >
+          <Pane width={250} padding={24} display="flex" flexDirection="column">
             {currentUser ? (
               <>
                 <Text>Welcome {currentUser && currentUser.email}</Text>
@@ -89,30 +77,21 @@ const Home = () => {
                     {error}
                   </Text>
                 )}
-                {formShown === "loginForm" ? (
-                  <>
-                    <Login />
-                    <Link
-                      href="#"
-                      marginRight={12}
-                      onClick={() => setFormShown("signUpForm")}
-                    >
-                      Sign Up
-                    </Link>
-                  </>
-                ) : (
-                  <>
-                    <SignUp />
 
-                    <Link
-                      href="#"
-                      marginRight={12}
-                      onClick={() => setFormShown("loginForm")}
-                    >
+                <Switch>
+                  <Route exact path="/signup">
+                    <SignUp />
+                    <Link href="/login" marginRight={12}>
                       Login
                     </Link>
-                  </>
-                )}
+                  </Route>
+                  <Route exact path="/login">
+                    <Login />
+                    <Link href="/signup" marginRight={12}>
+                      Sign Up
+                    </Link>
+                  </Route>
+                </Switch>
               </>
             )}
           </Pane>
@@ -121,10 +100,5 @@ const Home = () => {
     </Pane>
   );
 };
-
-const AppTitle = styled.h1`
-  font-family: "Amatic SC", cursive;
-  font-size: 4rem;
-`;
 
 export default Home;
