@@ -4,15 +4,21 @@ import Home from "./Home";
 import { UserProvider } from "./UserContext";
 import GlobalStyle from "./GlobalStyles";
 import AddPostTest from "./AddPostTest";
+import Header from "./Header";
+import Blogger from "./Blogger";
 
 function App() {
   return (
     <Router>
       <GlobalStyle />
       <UserProvider>
+        <Header />
         <Switch>
           <Route path="/add">
             <AddPostTest />
+          </Route>
+          <Route path="/user/:id">
+            <Blogger />
           </Route>
           <Route path="/">
             <Home />
