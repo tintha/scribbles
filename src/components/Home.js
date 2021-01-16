@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import styled from "styled-components";
+import moment from "moment";
 import {
   Pane,
   Text,
@@ -35,7 +36,8 @@ const Home = () => {
             {currentUser && <AddPost />}
             {posts ? (
               posts.map((post, index) => {
-                let datePosted = post.postedOn.toDate().toLocaleDateString();
+                let datePosted = post.postedOn.toDate();
+
                 return (
                   <Pane
                     width={600}
@@ -49,10 +51,10 @@ const Home = () => {
                     key={index}
                   >
                     <Heading>{post.title}</Heading>
-                    <Text size={300}>Posted on {datePosted}</Text>
-                    <Paragraph size={300} marginTop="default">
-                      {post.content}
-                    </Paragraph>
+                    <Text size={300}>
+                      {moment(datePosted).format("LL, LT")}
+                    </Text>
+                    <Bcontent>{post.content}</Bcontent>
                   </Pane>
                 );
               })
@@ -78,20 +80,7 @@ const Home = () => {
                   </Text>
                 )}
 
-                <Switch>
-                  <Route exact path="/signup">
-                    <SignUp />
-                    <Link href="/login" marginRight={12}>
-                      Login
-                    </Link>
-                  </Route>
-                  <Route exact path="/login">
-                    <Login />
-                    <Link href="/signup" marginRight={12}>
-                      Sign Up
-                    </Link>
-                  </Route>
-                </Switch>
+                <Login />
               </>
             )}
           </Pane>
@@ -100,5 +89,15 @@ const Home = () => {
     </Pane>
   );
 };
+
+const Bcontent = styled.p`
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  line-height: 18px;
+  font-size: 12px;
+  ::first-letter {
+    font-size: 1.5em;
+    font-weight: bolder;
+  }
+`;
 
 export default Home;

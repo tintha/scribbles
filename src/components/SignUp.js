@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { UserContext } from "./UserContext";
-import { TextInput, Button, Text } from "evergreen-ui";
+import { TextInput, Button, Text, Pane } from "evergreen-ui";
 
 const SignUp = () => {
   const {
@@ -12,7 +12,7 @@ const SignUp = () => {
     bio,
   } = useContext(UserContext);
   return (
-    <div>
+    <Pane display="flex" flexDirection="column" width={400} margin="auto">
       <label htmlFor="displayName">
         <Text>Display Name</Text>
       </label>
@@ -59,7 +59,7 @@ const SignUp = () => {
       >
         Sign Up
       </Button>
-    </div>
+    </Pane>
   );
 };
 
