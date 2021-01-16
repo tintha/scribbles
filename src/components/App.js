@@ -6,6 +6,7 @@ import GlobalStyle from "./GlobalStyles";
 import AddPostTest from "./AddPostTest";
 import Header from "./Header";
 import Blogger from "./Blogger";
+import SignUp from "./SignUp";
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
           </Route>
           <Route path="/user/:id">
             <Blogger />
+          </Route>
+          <Route path="/signup">
+            <SignUp />
           </Route>
           <Route path="/">
             <Home />

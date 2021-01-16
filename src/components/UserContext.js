@@ -42,24 +42,34 @@ export const UserProvider = ({ children }) => {
       .collection("posts")
       .orderBy("postedOn", "desc")
       .onSnapshot((querySnapshot) => {
-        const postsArray = querySnapshot.docs.map((doc) => doc.data());
+        const postsArray = querySnapshot.docs.map((doc) => {
+          const user = doc.data().userID;
+          const infos = doc.data();
+          let postedBy;
+          db.collection("users")
+            .doc(user)
+            .get()
+            .then((querySnapshot) => {
+              postedBy = querySnapshot.data().displayName;
+            });
+          return { ...infos, postedBy };
+        });
+
         setPosts([...postsArray]);
+        console.log(postsArray);
       });
 
     return () => unsubscribe();
   }, []);
 
-  const userBlogPage = (id) => {
-    db.collection("posts")
-      .where("userID", "==", id)
-      .orderBy("postedOn", "desc")
+  useEffect(() => {
+    db.collection("users")
+      .doc("KMMDt3EfkXN8p5pQIeCc98V5SEm1")
       .get()
-      .then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-          console.log(doc.id, "=>", doc.data());
-        });
+      .then((querySnapshot) => {
+        console.log(querySnapshot.data().displayName);
       });
-  };
+  }, []);
 
   const signInWithEmailAndPasswordHandler = async (event, email, password) => {
     event.preventDefault();
@@ -157,7 +167,6 @@ export const UserProvider = ({ children }) => {
         addBlogPost,
         title,
         content,
-        userBlogPage,
         userBlogPosts,
       }}
     >
